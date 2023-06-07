@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CacheTagDemo</title>
+</head>
+<body>
+    DateTime: @DateTime.Now
+
+    <hr />
+    @*expires-on 明確時間點失效*@
+    <cache enabled="true" expires-on="new DateTime(2023,3,17)">
+        <div style="background-color:yellow;">
+            DateTime: @DateTime.Now
+        </div>
+    </cache>
+    <hr />
+    @*expires-after cache後多久失效*@
+    <cache enabled="true" expires-after="TimeSpan.FromSeconds(10)">
+        <div style="background-color:pink;">
+            DateTime: @DateTime.Now
+        </div>
+    </cache>
+    <hr />
+    @*expires-sliding 每次被使用後重新計算*@
+    <cache enabled="true" expires-sliding="TimeSpan.FromSeconds(10)">
+        <div style="background-color:lightblue;">
+            DateTime: @DateTime.Now
+        </div>
+    </cache>
+</body>
+</html>

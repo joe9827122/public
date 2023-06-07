@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <a asp-controller="Operas">Operas</a>
+
+    <form action="/" method="post">
+        <input type="text" name="number" />
+        <input type="submit" value="double" />
+        <span>@ViewBag.result</span>
+    </form>
+</body>
+</html>

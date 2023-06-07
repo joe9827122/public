@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+
+    DateTime: @DateTime.Now
+    <hr />
+    <a asp-action="Default">Default</a>
+    <a asp-action="Never">Never</a>
+    <hr />
+    <a asp-action="Index">Index</a>
+    <hr />
+    <a asp-action="Index2" asp-route-id="100">100</a> /
+    <a asp-action="Index2" asp-route-id="200">200</a> /
+    <a asp-action="Index2" asp-route-id="300">300</a>
+    <hr />
+    <a asp-action="Index3" asp-route-id2="100">100</a> /
+    <a asp-action="Index3" asp-route-id2="200">200</a> /
+    <a asp-action="Index3" asp-route-id2="300">300</a>
+</body>
+</html>

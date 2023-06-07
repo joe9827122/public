@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using System.Globalization
+@model IRequestCultureFeature
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@*IViewLoaclizer 註入服務*@
+@inject IViewLocalizer _localizer
+
+@*IHtmlLocalizer 註入服務,可以自行選擇客製化類別*@
+@inject IHtmlLocalizer<StarterM.Shared.Common> _localizer2
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <a href="/zh-tw">中文</a> /<a href="/en-us">English</a>
+    <br />
+    <a asp-route="Custom">Home(en-us)-Set by cookie</a> /
+    <a asp-route="Custom" asp-route-culture="zh-tw">Home(zh-tw)-Set by cookie</a> /
+    <a asp-controller="Employee">Employee</a>/
+    <a asp-controller="Employee" asp-action="Create">Employee Create</a>
+    <ul>
+        <li>Message: @ViewBag.Message</li>
+        <li>Message No Resource: @ViewBag.Message_No_Res</li>
+        <li>Message HtmlLocalizer: @ViewBag.Message2</li>
+        <li>Message Shared Localizer: @ViewBag.Message3</li>
+        <li>Message Shared Localizer at View: @_localizer2["FileNotFound"]</li>
+        <li>Company Name: @_localizer["CompanyName"]</li>
+    </ul>
+    <hr />
+    <ul>
+        <li>Provider: @Model.Provider?.GetType().Name</li>
+        <li>Request Culture: @Model.RequestCulture.Culture</li>
+    </ul>
+    <hr />
+    @*抓伺服器的設定:控制台->時鐘及地區->地區*@
+    <ul>
+        @*影響日期/貨幣格式*@
+        <li>Culture: @CultureInfo.CurrentCulture</li>
+        @*影響UI文字*@
+        <li>UICulture: @CultureInfo.CurrentUICulture</li>
+        <li>Date: @DateTime.Now.ToLongDateString()</li>
+        <li>Currency: @(88888.ToString("c"))</li>
+    </ul>
+</body>
+</html>

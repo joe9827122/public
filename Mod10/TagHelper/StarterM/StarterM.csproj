@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\cats\cat_box.png" />
+    <None Include="wwwroot\images\cats\cat_cage.png" />
+    <None Include="wwwroot\images\cats\cat_cart.png" />
+    <None Include="wwwroot\images\cats\cat_clean.png" />
+    <None Include="wwwroot\images\cats\cat_drunk.png" />
+    <None Include="wwwroot\images\cats\cat_eyes.png" />
+    <None Include="wwwroot\images\cats\cat_fight.png" />
+    <None Include="wwwroot\images\cats\cat_fish.png" />
+    <None Include="wwwroot\images\cats\cat_grumpy.png" />
+    <None Include="wwwroot\images\cats\cat_hiss.png" />
+    <None Include="wwwroot\images\cats\cat_moustache.png" />
+    <None Include="wwwroot\images\cats\cat_poo.png" />
+    <None Include="wwwroot\images\cats\cat_purr.png" />
+    <None Include="wwwroot\images\cats\cat_slippers.png" />
+    <None Include="wwwroot\images\cats\cat_tied.png" />
+    <None Include="wwwroot\images\cats\cat_walk.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
+  </ItemGroup>
+
+</Project>

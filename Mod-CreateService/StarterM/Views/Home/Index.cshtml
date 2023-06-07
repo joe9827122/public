@@ -1,0 +1,68 @@
+﻿@inject StarterM.IMyService service1
+@using Microsoft.Extensions.FileProviders
+@model IDirectoryContents
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+
+    <ul>
+        <li>Controller: @ViewBag.id</li>
+        <li>View: @service1.Id</li>
+    </ul>
+
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.Name : @item.IsDirectory</li>
+        }
+    </ul>
+    <hr />
+    <ul>
+        @foreach (var item in Model)
+        {
+            if (item.IsDirectory)
+            {
+                <li>@item.Name </li>
+            }
+            else
+            {
+                <li><a href="~/home/select?name=@item.Name">@item.Name</a></li>
+            }
+            
+        }
+    </ul>
+    <hr />
+<pre>
+@ViewBag.result
+</pre>
+    <hr />
+    <ul>
+        @foreach (var item in Model)
+        {
+            if (item.IsDirectory)
+            {
+                <li>@item.Name </li>
+            }
+            else
+            {
+                <li><a href="~/home/select2?name=@item.Name">@item.Name</a></li>
+            }
+            
+        }
+    </ul>
+    <hr />
+<pre>
+@TempData["result"]
+</pre>
+</body>
+</html>

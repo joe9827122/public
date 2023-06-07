@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <input id="username" />
+    <input type="button" id="connect" value="connect" />
+    <div id="divMessage" style="display:none">
+        <input id="message" />
+        <input type="button" id="send" value="send" />
+    </div>
+    <hr />
+    <ul id="result"></ul>
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script>
+        $(() => {
+            $("#connect").click(() => {
+                $("#connect").attr("disabled", true);
+                $("#username").attr("disabled", true);
+                var conn = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+
+                conn.on("ReceiveMessage", message => {
+                    $("#result").append($("<li>").text(`${message}`));
+                });
+                conn.start().then(() => {
+                    $("#divMessage").css("display", "block");
+                    conn.invoke("SendMessage", `${$("#username").val()} is online`);
+                });
+
+                $("#send").click(() => {
+                    conn.invoke("SendMessage", `${$("#username").val()}:${$("#message").val()}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

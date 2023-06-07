@@ -1,0 +1,61 @@
+﻿@model IEnumerable<StarterM.Models.Opera>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <ul>
+        <li>ViewData: @ViewData["data1"]</li>
+        <li>Tempdata: @TempData["data2"]</li>
+        <li>Session:  @Context.Session.GetString("data3")</li>
+        @*@Context 有啟用Global Using，預設開啟*@
+    </ul>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Composer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Composer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OperaID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OperaID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OperaID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

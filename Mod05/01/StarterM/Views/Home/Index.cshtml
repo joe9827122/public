@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager
+@inject SignInManager<ApplicationUser> _signInManager
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+
+    @if (_signInManager.IsSignedIn(User))
+    {
+        var user = await _userManager.GetUserAsync(User);
+        <h3>
+            Hi, @_userManager.GetUserName(User)
+            [@user.City?.ToUpper()]
+        </h3>
+        <a asp-action="logout" asp-controller="account">Logout</a> @:/
+    }
+    else
+    {
+        <a asp-action="login" asp-controller="account">Login</a> @:/
+    }
+
+    <a asp-action="register" asp-controller="account">Register</a> /
+    <a asp-action="about" asp-controller="home">about</a> /
+    <a asp-action="adminonly" asp-controller="home">Admin Only</a> 
+</body>
+</html>

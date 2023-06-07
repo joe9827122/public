@@ -1,0 +1,124 @@
+﻿@model StarterM.Models.Customer
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <form method="post" id="form1">
+        @Html.EditorForModel()
+    </form>
+    <hr />
+    <div>
+        <input type="button" id="btnAll" value="List" />
+        <input type="button" id="btnGet" value="Get" />
+        <input type="button" id="btnInsert" value="Insert" />
+        <input type="button" id="btnUpdate" value="Update" />
+        <input type="button" id="btnDelete" value="Delete" />
+    </div>
+    <div id="result" style="color:red;font-size:2em;"></div>
+    <ul id="list"></ul>
+    <hr />
+    <table border="1">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.CustomerID)</th>
+                <th>@Html.DisplayNameFor(m => m.CompanyName)</th>
+                <th>@Html.DisplayNameFor(m => m.Country)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script>
+        //$(()=>{}) Document Ready
+        //jqyery出現404時檢查Programs.cs  app.UsestaticField()是否有加入
+        $(() => { 
+            //async function getAll() {
+            //    $("#list").empty();
+            //    var response = await fetch("@Url.Content("~/api/customers")");
+            //    var result = await response.json();
+            //    result.forEach(item => {
+            //        $("#list").append(
+            //            $("<li>").text(`${item.customerID}---${item.companyName}---${item.contry}`)
+            //        );
+            //    });
+            //};
+
+            async function getAll() {
+                $("tbody").empty();
+                var response = await fetch("@Url.Content("~/api/customers")");
+                var result = await response.json();
+                result.forEach(item => {
+                    $("tbody").append(`<tr>
+                                           <td>${item.customerID}</td>
+                                           <td>${item.companyName}</td>
+                                           <td>${item.country}</td>
+                                       </tr>`);
+                });
+            };
+
+
+
+            $("#btnAll").click(getAll);
+
+            $("#btnGet").click(() => {
+
+                fetch(`@Url.Content("~/api/customers")/${$("#CustomerID").val()}`) //呼叫連結取得資料
+                    .then(response => {
+                        if (response.ok) return response.json();  //處理資料轉為Json
+                        else throw response.statusText;
+                    })  
+                    .then(item => { //塞入資料到前端
+                        $("#CompanyName").val(item.companyName);
+                        $("#Country").val(item.country);
+                    })
+                    .catch(error => {
+                        $("#result").text(error);
+                        $("#CompanyName").val("");
+                        $("#Country").val("");
+                        $("#CustomerID").select();
+                    });
+            })
+
+            $("#btnInsert").click(() => {
+                fetch("@Url.Content("~/api/customers")", {
+                    method: "post",
+                    headers: {
+                        "content-type": "application/x-www-form-urlencoded"
+                    },
+                    body: $("#form1").serialize()
+                })
+                    .then(getAll);
+            });
+
+            $("#btnUpdate").click(() => {
+                fetch(`@Url.Content("~/api/customers")/${$("#CustomerID").val()}`, {
+                    method: "put",
+                    headers: {
+                        "content-type": "application/x-www-form-urlencoded"
+                    },
+                    body: $("#form1").serialize()
+                })
+                    .then(getAll);
+            });
+
+            $("#btnDelete").click(() => {
+                fetch(`@Url.Content("~/api/customers")/${$("#CustomerID").val()}`, {
+                    method: "delete"
+                })
+                    .then(getAll);
+            });
+        });
+    </script>
+</body>
+</html>

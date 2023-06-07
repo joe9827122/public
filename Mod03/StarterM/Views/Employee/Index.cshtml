@@ -1,0 +1,21 @@
+﻿@model StarterM.Models.Employee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Employee</h1>
+    <ul>
+        <li>@Html.DisplayNameFor(m=>m.Id):@Html.DisplayFor(m=>m.Id)</li>
+        <li>@Html.DisplayNameFor(m=>m.Name):@Html.DisplayFor(m=>m.Name)</li>
+        <li>@Html.DisplayNameFor(m=>m.Age):@Html.DisplayFor(m=>m.Age)</li>
+    </ul>
+</body>
+</html>
